@@ -24,7 +24,7 @@ Se ha capturado una sesión SIP (archivo sip.cap.gz), que se puede abrir con Wir
  ** ¿Cuál de los dos es mayor? ¿Es esto consistente con una aplicación que transmite en tiempo real?
     UDP (96,23 % de paquetes) / Sí, ya que en este tipo de aplicaciones interesa que sea una conexión rápida.
  ** ¿Qué otros protocolos podemos ver en la jerarquía de protocolos?
-    IP, DNS, SIP, RTP, RTCP, HTTP, ICMP, ARP
+    IP, DNS, STUN, SIP, RTP, RTCP, HTTP, ICMP, ARP
 
 4. Observa por encima el flujo de tramas en el menú de Statistics en IO Graphs. La captura que estamos viendo incluye desde la inicialización (registro) de la aplicación hasta su finalización, con una llamada entremedias.
  ** Filtra por sip para conocer cuándo se envían paquetes SIP. ¿En qué segundos tienen lugar esos envíos?
@@ -38,21 +38,31 @@ Se ha capturado una sesión SIP (archivo sip.cap.gz), que se puede abrir con Wir
 
 5. Analiza las primeras cuatro tramas de la captura nada más arrancar Ekiga.
  ** ¿Qué servicio es el utilizado en estas tramas?
+    DNS
  ** ¿Cuál es la dirección IP del servidor de nombres del ordenador que ha lanzado Ekiga?
+    80.58.61.250
  ** ¿Qué dirección IP (de ekiga.net) devuelve el servicio de nombres?
+    86.64.162.35
  ** ¿Por qué se pide también para 35.162.64.86.in-addr.arpa?
+    Vemos que se pide la IP de nuevo para que le devuelva el nombre, así que imaginamos que se trata de un método de verificación.
 
 
 6. A continuación, hay más de una docena de tramas TCP/HTTP.
  ** ¿Podrías decir la URL que se está pidiendo?
+    http://ekiga.net/ip/
  ** ¿Qué user agent (UA) la está pidiendo?
+    Ekiga
  ** ¿Qué devuelve el servidor?
+    83.36.48.212
  ** Si lanzamos el navegador web, por ejemplo, Mozilla Firefox, y vamos a la misma URL, ¿qué recibimos? ¿Qué es, entonces, lo que está respondiendo el servidor?
+    Recibimos el texto IP 193.147.49.120 / Responde con la IP pública de nuestra terminal. 
 
 
 7. Hasta la trama 45 se puede observar una secuencia de tramas del protocolo STUN.
  ** ¿Por qué crees que se hace uso de este protocolo en esta captura? Busca en la Wikipedia.
+    Para saber qué tipo de router NAT tenemos, la IP pública y el puerto de Internet asociado con el puerto local a través de NAT.
  ** ¿Estamos tras un NAT?
+    Sí porque la IP pública no es la IP de enlace.
 
 
 8. La trama 46 es la primera trama SIP. En un entorno como el de Internet, lo habitual es desconocer la dirección IP de la otra parte al realizar una llamada. Por eso, todo usuario registra su localización en un servidor Registrar. El Registrar guarda información sobre los usuarios en un servidor de localización que puede ser utilizado para localizar usuarios.
