@@ -92,7 +92,7 @@ Se ha capturado una sesión SIP (archivo sip.cap.gz), que se puede abrir con Wir
 
 10. Una vez registrados, podemos efectuar una llamada. Vamos a probar con el servicio de eco de Ekiga que nos permite comprobar si nos hemos conectado correctamente. El servicio de eco tiene la dirección sip:500@ekiga.net. Veamos el INVITE de cerca.
  ** ¿Puede verse el nombre del que efectúa la llamada, así como su dirección SIP?
-    Sí, en la cabecera from (grex, grex@ekiga.net)
+    Sí, en la cabecera from (Gregorio Robles, grex@ekiga.net)
  ** ¿Qué es lo que contiene el cuerpo de la trama? ¿En qué formato/protocolo está?
     Contiene información sobre la descripción de la sesión como por ejemplo 'MIME Type'/ SDP 
  ** ¿Tiene éxito el primer intento? ¿Cómo lo sabes?
@@ -111,7 +111,7 @@ Se ha capturado una sesión SIP (archivo sip.cap.gz), que se puede abrir con Wir
  ** ¿Se utilizan bits de padding?
     No porque la cabecera padding está a false.
  ** ¿Cuál es la periodicidad de los paquetes que se envían?
-    RTCP: 5 s
+    RTCP: 2 s
     RTP: 20 ms (H.261 no es significativo) 
  ** ¿Cuántos bits/segundo estamos enviando?
     50 paquetes/s de audio * 1280 bits/paquete = 64000 bps
@@ -193,22 +193,30 @@ Captura una sesión SIP de una conversación con el número SIP sip:9999@qxip.ne
 
 17. Observa las diferencias en el inicio de la conversación entre el entorno del laboratorio y el del ejercicio anterior:
  ** ¿Es necesario el uso de DNS y STUN? ¿Por qué?
-
+    Sí es necesario porque con DNS hallamos la IP del servidor Ekiga y con STUN nos da la IP pública (antes la obteníamos con HTTP).
  ** ¿Son diferentes el registro y la descripción de la sesión?
-
+    El registro es igual ya que se usa también el método REGISTER. La descripción de sesión es distinta ya que por ejemplo en la captura anterior aparece que el ancho de banda está determinado.
 
 
 18. Identifica las diferencias existentes entre esta conversación y la conversación anterior:
  ** ¿Cuántos flujos tenemos?
-
+    2 flujos de audio.
  ** ¿Cuál es su periodicidad?
-
+    RTCP: 5 s.
+    RTP: 20 ms.
  ** ¿Cuánto es el valor máximo del delta y los valores medios y máximo del jitter?
-
+    Flujo 1:
+        Max Delta: 39,98 ms
+        Max Jitter: 1,87 ms
+        Mean Jitter: 0,51 ms
+    Flujo 2:
+        Max Delta: 24,39 ms
+        Max Jitter: 0,84 ms
+        Mean Jitter: 0,30 ms
  ** ¿Podrías reproducir la conversación desde Wireshark? ¿Cómo? Comprueba que poniendo un valor demasiado pequeño para el buffer de jitter, la conversación puede no tener la calidad necesaria.
-
+    En RTP Stream --> analysis --> Player. Vemos que bajando el tamaño del buffer de jitter el audio que suena se corta (baja calidad).
  ** ¿Sabrías decir qué tipo de servicio ofrece sip:9999@qxip.net?
-
+    Ofrece un servicio de media de audio.
 
 
 
