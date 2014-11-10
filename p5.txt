@@ -103,7 +103,7 @@ Se ha capturado una sesión SIP (archivo sip.cap.gz), que se puede abrir con Wir
 
 11. Una vez conectado, estudia el intercambio de tramas.
  ** ¿Qué protocolo(s) se utiliza(n)? ¿Para qué sirven estos protocolos?
-    RTP:  se usa para la transmisión de información en tiempo real
+    RTP:  se usa para la transmisión de información en tiempo real.
     RTCP: se utiliza para enviar datos de control entre el emisor y el receptor de una secuencia RTP y contienen datos que ayudan a verificar las condiciones de transmisión en el extremo remoto 
  ** ¿Cuál es el tamaño de paquete de los mismos?
     RTP: 1712 bits
@@ -126,7 +126,7 @@ Se ha capturado una sesión SIP (archivo sip.cap.gz), que se puede abrir con Wir
  ** ¿Cuántos paquetes se pierden?
     0 %
  ** ¿Cuál es el valor máximo del delta? ¿Y qué es lo que significa el valor de delta?
-    1290,48 ms. El tiempo que hay entre dos paquetes.
+    1290,48 ms. El tiempo máximo que hay entre un paquete y el siguiente.
  ** ¿Cuáles son los valores de jitter (medio y máximo)? ¿Qué quiere decir eso? ¿Estamos ante una conversación de calidad?
     Vídeo: 
         Jitter máx: 183,10 ms
@@ -136,7 +136,7 @@ Se ha capturado una sesión SIP (archivo sip.cap.gz), que se puede abrir con Wir
         Jitter medio: 42,50 ms
 
     El jitter máximo indica el retardo máximo de la señal enviada y el jitter medio indica la media de los retardos de todos los paquetes enviados. 
-    La calidad depende mucho de la percepción humana, sin embargo en gráfica vemos que hay muchos picos y es muy variable que no se acerca a lo ideal que es plano. También vemos que el jitter es muy grande.
+    La calidad depende mucho de la percepción humana, sin embargo en la gráfica vemos que hay muchos picos y es muy variable que no se acerca a lo ideal que es plano. También vemos que el jitter es muy grande.
 
 13. Elige un paquete RTP de audio. Analiza el flujo de audio en Telephony -> RTP -> Stream Analysis.
  ** ¿Cuánto valen el delta y el jitter para el primer paquete que ha llegado?
@@ -146,7 +146,7 @@ Se ha capturado una sesión SIP (archivo sip.cap.gz), que se puede abrir con Wir
  ** Los valores de jitter son menores de 10ms hasta un paquete dado. ¿Cuál?
     247
  ** ¿A qué se debe el cambio tan brusco del jitter?
-     Este cambio es debido a algo puntual (como por ejemplo una descarga paralela).
+     Este cambio es debido a algo puntual (como por ejemplo una descarga paralela) y por eso el siguiente paquete llega más tarde aumentando el jitter.
  ** ¿Es comparable este cambio con el tiempo desde la recepción del paquete anterior? ¿Por qué?
     Sí es comparable ya que el valor del jitter aumenta debido a que el valor de delta muy grande.   
  ** ¿Cuál es la dependencia entre el tiempo transcurrido desde el paquete anterior y el valor de jitter?
@@ -155,11 +155,11 @@ Se ha capturado una sesión SIP (archivo sip.cap.gz), que se puede abrir con Wir
 
 14. En Telephony selecciona el menú VoIP calls. Verás que se lista la llamada de voz IP capturada en una ventana emergente. Selecciona esa llamada y pulsa el botón Graph.
  ** ¿Cuánto dura la conversación?
-    Restando el tiempo del último paquete RTP al primero vemos que la conversación dura 20,949407 seg
+    Restando el tiempo del último paquete RTP al primero vemos que la conversación dura 24,80 seg
  ** ¿Cuáles son sus SSRC? ¿Por qué hay varios SSRCs? ¿Hay CSRCs?
     Audio: 0xBF4AFD37
     Vídeo: 0x43306582
-    Hay varios porque el SSRC identifica el flujo de cada paquete y en nuestro caso hay 2. 
+    Hay varios porque el SSRC identifica el flujo al que pertenece cada paquete y en nuestro caso hay 2. 
     No hay CSRCs ya que no hay mezclador.
 
 
@@ -167,8 +167,8 @@ Se ha capturado una sesión SIP (archivo sip.cap.gz), que se puede abrir con Wir
  ** ¿Qué método SIP se utiliza?
     El método BYE.
  ** ¿En qué trama(s)?
-    924
- ** ¿Por qué crees que se envía varias veces?
+    924, 925, 927, 933
+4 ** ¿Por qué crees que se envía varias veces?
     Para no tener que esperar para irte y asegurarte que llega el mensaje BYE y recibir el 200 OK en el menor tiempo posible.
     
 
@@ -178,7 +178,7 @@ Se ha capturado una sesión SIP (archivo sip.cap.gz), que se puede abrir con Wir
  ** ¿En qué trama sucede esto?
     950
  ** ¿En qué se diferencia con la instrucción que se utilizó con anterioridad (al principio de la sesión)?
-    El BYE es para terminar la sesión y el REGISTER para derse de baja (borrarse) en el servidor.
+    El primer RGISTER se utiliza para registrarte en el servidor y el REGISTER para derse de baja en el servidor.
 
 
 
